@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/normalize-v8.0.1.css" />
+    <link rel="stylesheet" href="css/KeyQuake.css" />
+    <title>KeyQuake</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">
+          KeyQuake
+          <span class="sub-text">Typing Test</span>
+        </div>
+
+        <ul>
+          <li class="home-link"><i class="fa-solid fa-house"></i> Home</li>
+          <li class="tracker-link">Results Tracker</li>
+        </ul>
+      </header>
+
+      <main>
+        <div class="home hidden">
+          <button class="start-btn">Start Test</button>
+
+          <h3 class="hidden typed-title">What You've Typed</h3>
+
+          <div class="test-container hidden">
+            <div class="timer">
+              <h3>Timer</h3>
+              <span>60</span>
+            </div>
+            <div class="test">
+              <input
+                type="text"
+                class="input-text"
+                data-gramm="false"
+                data-gramm_editor="false"
+                data-enable-grammarly="false"
+                spellcheck="false"
+                autocomplete="off"
+              />
+              <p></p>
+            </div>
+          </div>
+          <button class="res-btn hidden">Get Results</button>
+
+          <div class="test-results hidden">
+            <div class="metric">
+              <div class="ring wpm">
+                <div class="result">
+                  <span class="score"></span>
+                  <span class="metric-name">WPM</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="metric">
+              <div class="ring accuracy">
+                <div class="result">
+                  <span class="score"></span>
+                  <span class="metric-name">Accuracy</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="additional-metrics">
+              <table>
+                <tbody>
+                  <tr aria-colspan="2">
+                    <td>
+                      Keystrokes per minute(KPM): <span class="kpm"></span>
+                    </td>
+                  </tr>
+                  <tr aria-colspan="2">
+                    <td>Error Rate: <span class="error-rate"></span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Correct letters: <span class="correct-letters"></span>
+                    </td>
+                    <td>Wrong letters: <span class="wrong-letters"></span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Correct spaces: <span class="correct-spaces"></span>
+                    </td>
+                    <td>Wrong spaces: <span class="wrong-spaces"></span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="actions">
+              <button>
+                <i class="fa-solid fa-rotate-right"></i> Start over
+              </button>
+              <input type="button" value="Results History" />
+            </div>
+          </div>
+        </div>
+
+        <div class="tracker hidden">
+          <h2 class="title">Track your Results</h2>
+        </div>
+      </main>
+
+      <footer>
+        <span>
+          <i class="fa-regular fa-copyright"></i> Copyrights &copy; 2025 All
+          Rights Reserved
+        </span>
+
+        <span> <i class="fa-solid fa-code-branch"></i> App Version: 1.0 </span>
+        <span>
+          <i class="fa-regular fa-calendar"></i> Release Date: 04-01-2025
+        </span>
+        <span>
+          <i class="fa-solid fa-shield-halved"></i> Privacy policy and terms of
+          use
+        </span>
+      </footer>
+    </div>
+    <script src="js/all.min.js" type="module"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
