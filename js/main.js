@@ -36,6 +36,7 @@ let startOver = document.querySelector(".test-results .actions button");
 let navLinks = document.querySelector("header ul").children;
 let homeContent = document.querySelector("main .home");
 let trackerContent = document.querySelector("main .tracker");
+let resultsHistBtn = document.querySelector("[value='Results History'");
 let firstkey = false;
 let KPM = 0;
 let currectTab = sessionStorage.getItem("activeTab") != null ? sessionStorage.getItem("activeTab") : 0;
@@ -43,42 +44,11 @@ let currectTab = sessionStorage.getItem("activeTab") != null ? sessionStorage.ge
 getCurrentTab();
 
 navLinks[0].addEventListener("click", () => {
-    if (currectTab !== 0) {
-        navLinks[currectTab].classList.remove("active");
-        navLinks[0].classList.add("active");
-        currectTab = 0;
-        window.sessionStorage.setItem("activeTab", currectTab);
-
-        trackerContent.classList.add("to-left");
-
-        setTimeout(() => {
-            trackerContent.classList.add("hidden");
-            homeContent.classList.add("from-right");
-            homeContent.classList.remove("to-right", "hidden");
-            setTimeout(() => {
-                inputText.focus();
-            }, 510);
-        }, 500);
-
-    }
+    homeTab();
 });
 
 navLinks[1].addEventListener("click", () => {
-    if (currectTab !== 1) {
-        navLinks[currectTab].classList.remove("active");
-        navLinks[1].classList.add("active");
-        currectTab = 1;
-        window.sessionStorage.setItem("activeTab", currectTab);
-
-        homeContent.classList.remove("from-right");
-        trackerContent.classList.remove("to-left");
-        homeContent.classList.add("to-right");
-
-        setTimeout(() => {
-            homeContent.classList.add("hidden");
-            trackerContent.classList.remove("hidden");
-        }, 500);
-    }
+    trackerTab();
 });
 
 startBtn.addEventListener("click", function () {
@@ -173,6 +143,8 @@ resBtn.addEventListener("click", () => {
         });
     });
 });
+
+resultsHistBtn.addEventListener("click", trackerTab);
 
 
 function startTest() {
@@ -427,5 +399,44 @@ function getCurrentTab() {
     else {
         trackerContent.classList.remove("hidden");
         navLinks[1].classList.add("active");
+    }
+}
+
+function trackerTab() {
+    if (currectTab != 1) {
+        navLinks[currectTab].classList.remove("active");
+        navLinks[1].classList.add("active");
+        currectTab = 1;
+        sessionStorage.setItem("activeTab", currectTab);
+
+        homeContent.classList.remove("from-right");
+        trackerContent.classList.remove("to-left");
+        homeContent.classList.add("to-right");
+
+        setTimeout(() => {
+            homeContent.classList.add("hidden");
+            trackerContent.classList.remove("hidden");
+            trackerContent.classList.add("from-left");
+        }, 500);
+    }
+}
+
+function homeTab() {
+    if (currectTab != 0) {
+        navLinks[currectTab].classList.remove("active");
+        navLinks[0].classList.add("active");
+        currectTab = 0;
+        sessionStorage.setItem("activeTab", currectTab);
+
+        trackerContent.classList.add("to-left");
+
+        setTimeout(() => {
+            trackerContent.classList.add("hidden");
+            homeContent.classList.add("from-right");
+            homeContent.classList.remove("to-right", "hidden");
+            setTimeout(() => {
+                inputText.focus();
+            }, 510);
+        }, 500);
     }
 }

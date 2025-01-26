@@ -29,6 +29,11 @@ body {
 
 ::-webkit-scrollbar {
   width: 0.7rem;
+  height: 0.7rem;
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {
@@ -517,6 +522,13 @@ main {
   min-height: inherit;
 }
 
+.tracker .data {
+  width: 100%;
+  overflow: scroll;
+  max-height: 50vh;
+  margin-top: 1.5rem;
+}
+
 .tracker.from-left {
   animation: from-left 0.5s forwards;
 }
@@ -524,6 +536,61 @@ main {
 .tracker.to-left {
   animation: to-left 0.5s forwards;
 }
+
+.tracker table {
+  color: var(--text-2-color);
+  width: calc(100% - 4px);
+  border: 1px solid #444;
+  text-align: center;
+  border-radius: 8px;
+  border-spacing: 0;
+  max-height: 80%;
+  overflow: hidden;
+  margin-right: 4px;
+}
+
+.tracker table td {
+  padding: 12px;
+}
+
+.tracker table td:not(:last-child) {
+  border-right: 1px solid #444;
+}
+
+.tracker tbody tr:nth-child(odd) {
+  background-color: var(--highlight-color);
+}
+
+.tracker .action {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.tracker .action button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  background-color: var(--correct-color);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.tracker .action button:hover {
+  background-color: #129869;
+  transform: scale(1.015);
+}
+
+.tracker tbody tr {
+  transition: all 0.3s;
+}
+
+.tracker tbody tr.best {
+  font-weight: bold;
+  color: var(--correct-color);
+  font-size: 1.1rem;
+}
+
 /* #endregion Tracker */
 
 /* #endregion */
