@@ -171,7 +171,10 @@ document.addEventListener("click", (event) => {
 });
 
 
-document.querySelector(".tracker .action button").addEventListener("click", homeTab);
+document.querySelector(".tracker .action button").addEventListener("click", () => {
+    location.reload();
+    homeTab();
+});
 
 function startTest() {
     generateTestText();
