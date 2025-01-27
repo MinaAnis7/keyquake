@@ -524,7 +524,7 @@ main {
 
 .tracker .data {
   width: 100%;
-  overflow: scroll;
+  overflow: auto;
   max-height: 50vh;
   margin-top: 1.5rem;
 }
@@ -544,8 +544,6 @@ main {
   text-align: center;
   border-radius: 8px;
   border-spacing: 0;
-  max-height: 80%;
-  overflow: hidden;
   margin-right: 4px;
 }
 
@@ -564,6 +562,10 @@ main {
 .tracker .action {
   text-align: center;
   margin-top: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tracker .action button {
@@ -581,16 +583,64 @@ main {
   transform: scale(1.015);
 }
 
+.tracker .action input {
+  background-color: transparent;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 0px;
+  background-color: var(--wrong-color);
+  transition: background-color 0.3s;
+}
+
+.tracker .action input:hover {
+  background-color: #991a1a;
+}
+
 .tracker tbody tr {
   transition: all 0.3s;
 }
 
-.tracker tbody tr.best {
+.tracker thead tr td {
   font-weight: bold;
-  color: var(--correct-color);
-  font-size: 1.1rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-color);
+  color: white;
+  z-index: 1;
+}
+.tracker thead tr td:first-child {
+  border-top-left-radius: 8px;
+}
+.tracker thead tr td:last-child {
+  border-top-right-radius: 8px;
 }
 
+.tracker tbody tr.best td:not(:last-child) {
+  color: white;
+  background-color: var(--correct-color);
+}
+
+.tracker tbody .delete-btn {
+  font-size: 14px;
+  color: var(--wrong-color);
+  cursor: pointer;
+}
+
+.tracker .no-data {
+  color: var(--text-2-color);
+  margin-top: 1rem;
+}
+
+.tracker tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+.tracker tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
 /* #endregion Tracker */
 
 /* #endregion */

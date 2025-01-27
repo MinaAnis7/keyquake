@@ -42,6 +42,7 @@ let KPM = 0;
 let currectTab = sessionStorage.getItem("activeTab") != null ? sessionStorage.getItem("activeTab") : 0;
 
 getCurrentTab();
+getResultsHistory();
 
 navLinks[0].addEventListener("click", () => {
     homeTab();
@@ -146,6 +147,10 @@ resBtn.addEventListener("click", () => {
 
 resultsHistBtn.addEventListener("click", trackerTab);
 
+document.querySelector(".tracker .clear-records").addEventListener("click", () => {
+    localStorage.clear();
+    getResultsHistory();
+});
 
 function startTest() {
     generateTestText();
@@ -328,7 +333,6 @@ function getCompletedWords() {
             testText.append(word);
         });
     }
-
 }
 
 function calculateMetrics() {
@@ -364,7 +368,7 @@ function calculateMetrics() {
 
     if (isNaN(accuracyScore)) accuracyScore = 0;
 
-    accuracy.children[0].children[0].innerText = accuracyScore.length == 5 ? accuracyScore.slice(0, -2) + "%" : accuracyScore + "%";
+    accuracy.children[0].children[0].innerText = accuracyScore.length == 5 ? accuracyScore.slice(0, -2) + "%" : accuracyScore + "%";;
 
     document.documentElement.style.setProperty("--progress", accuracyScore + "%");
 
@@ -389,6 +393,26 @@ function calculateMetrics() {
     wrongLet.innerText = wrongLetters
     corrSp.innerText = correctSpaces;
     wrongSp.innerText = wrongSpaces;
+
+    let resultsHistory = JSON.parse(localStorage.getItem("resultsHistory")) ?? [];
+    let id = resultsHistory.length == 0 ? 1 : resultsHistory[0].id + 1;
+    let results = {
+        id: id,
+        date: new Date().toLocaleString(),
+        wpm: wpmScore,
+        accuracy: accuracyScore + "%",
+        errorRate: (errorScore).toFixed(1) + "%",
+        kpm: KPM,
+        correctLetters: correctLetters,
+        correctSpaces: correctSpaces,
+        wrongLetters: wrongLetters,
+        wrongSpaces: wrongSpaces
+    };
+
+    resultsHistory.unshift(results);
+    localStorage.setItem("resultsHistory", JSON.stringify(resultsHistory));
+
+    getResultsHistory();
 }
 
 function getCurrentTab() {
@@ -438,5 +462,53 @@ function homeTab() {
                 inputText.focus();
             }, 510);
         }, 500);
+    }
+}
+
+function getResultsHistory() {
+    let dataContainer = document.querySelector(".tracker .data-container");
+    let noDataParagraph = document.querySelector(".tracker .no-data");
+    let tBody = document.querySelector(".tracker tbody");
+    let resultsHistory = JSON.parse(localStorage.getItem("resultsHistory")) ?? [];
+
+    if (resultsHistory.length == 0) {
+        dataContainer.classList.add("hidden");
+        noDataParagraph.classList.remove("hidden");
+    }
+    else {
+        noDataParagraph.classList.add("hidden");
+        dataContainer.classList.remove("hidden");
+
+        tBody.innerHTML = '';
+
+        resultsHistory.forEach((entry) => {
+            let tRow = document.createElement("tr");
+            let dateCell = document.createElement("td");
+            let wpmCell = document.createElement("td");
+            let accCell = document.createElement("td");
+            let errorCell = document.createElement("td");
+            let kpmCell = document.createElement("td");
+            let corrLCell = document.createElement("td");
+            let corrSCell = document.createElement("td");
+            let wrongLCell = document.createElement("td");
+            let wrongSCell = document.createElement("td");
+            let delCell = document.createElement("td");
+
+            tRow.id = entry.id;
+            dateCell.innerText = entry.date;
+            wpmCell.innerText = entry.wpm;
+            accCell.innerText = entry.accuracy;
+            errorCell.innerText = entry.errorRate;
+            kpmCell.innerText = entry.kpm;
+            corrLCell.innerText = entry.correctLetters;
+            corrSCell.innerText = entry.correctSpaces;
+            wrongLCell.innerText = entry.wrongLetters;
+            wrongSCell.innerText = entry.wrongSpaces;
+            delCell.innerText = "Delete";
+            delCell.className = "delete-btn";
+
+            tRow.append(dateCell, wpmCell, accCell, errorCell, kpmCell, corrLCell, corrSCell, wrongLCell, wrongSCell, delCell);
+            tBody.append(tRow);
+        });
     }
 }
