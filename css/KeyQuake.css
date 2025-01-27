@@ -619,11 +619,6 @@ main {
   border-top-right-radius: 8px;
 }
 
-.tracker tbody tr.best td:not(:last-child) {
-  color: white;
-  background-color: var(--correct-color);
-}
-
 .tracker tbody .delete-btn {
   font-size: 14px;
   color: var(--wrong-color);

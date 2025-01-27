@@ -152,6 +152,27 @@ document.querySelector(".tracker .clear-records").addEventListener("click", () =
     getResultsHistory();
 });
 
+
+document.addEventListener("click", (event) => {
+    if (event.target.className == "delete-btn") {
+        let id = event.target.parentElement.id;
+        let resultsHistory = JSON.parse(localStorage.getItem("resultsHistory"));
+
+        event.target.parentElement.remove();
+        resultsHistory.splice(resultsHistory.length - id, 1);
+
+        localStorage.setItem("resultsHistory", JSON.stringify(resultsHistory));
+
+        if (resultsHistory.length == 0) {
+            document.querySelector(".tracker .data-container").classList.add("hidden");
+            document.querySelector(".tracker .no-data").classList.remove("hidden");
+        }
+    }
+});
+
+
+document.querySelector(".tracker .action button").addEventListener("click", homeTab);
+
 function startTest() {
     generateTestText();
 
