@@ -301,7 +301,7 @@ function generateTestText() {
 }
 
 function countDown() {
-    let counter = 5;
+    let counter = 60;
     let timerInterval = setInterval(function () {
         timer.innerHTML = `${--counter}`.length < 2 ? "0" + counter : counter;
 
