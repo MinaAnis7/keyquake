@@ -1,3 +1,7 @@
+/*!
+ * Copyright © 2025 KeyQuake by Mina Anis. All rights reserved.
+ */
+
 const typingTexts = [
     "Typing is an essential skill in the modern world. It allows people to communicate faster and more effectively. Practicing regularly can greatly improve your accuracy and speed. The quick brown fox jumps over the lazy dog. This sentence contains all the letters of the English alphabet. Consistency and patience are key to mastering typing skills. Remember to keep your hands on the home row keys for better control. With time and effort, you can type faster without looking at the keyboard. Stay focused and avoid unnecessary breaks while practicing. Good posture also plays a vital role in comfortable typing. Improving these skills can make both personal and professional communication more efficient.",
 
@@ -38,7 +42,7 @@ let homeContent = document.querySelector("main .home");
 let trackerContent = document.querySelector("main .tracker");
 let resultsHistBtn = document.querySelector("[value='Results History'");
 let firstkey = false;
-let KPM = 0;
+let KPM = 0, skippedLetters = 0;
 let currectTab = sessionStorage.getItem("activeTab") != null ? sessionStorage.getItem("activeTab") : 0;
 
 getCurrentTab();
@@ -152,6 +156,8 @@ document.querySelector(".tracker .clear-records").addEventListener("click", () =
     getResultsHistory();
 });
 
+document.querySelector(".copyright-year").innerHTML = new Date().getFullYear();
+
 
 document.addEventListener("click", (event) => {
     if (event.target.className == "delete-btn") {
@@ -241,6 +247,14 @@ function startTest() {
         if (newWord && word < testText.children.length - 1) {
             let firstWordOffset = wordElement.offsetTop,
                 secondWordOfsset;
+
+            let skipped = wordElement.children.length - letter;
+            if (skipped > 1) {
+                skippedLetters += skipped;
+            }
+            else if (skipped == 1 && !wordElement.children[letter].classList.contains("active-last")) {
+                skippedLetters += skipped;
+            }
 
             wordElement.classList.add("completed");
 
@@ -373,6 +387,7 @@ function calculateMetrics() {
     let wrongLet = document.querySelector(".wrong-letters");
     let corrSp = document.querySelector(".correct-spaces");
     let wrongSp = document.querySelector(".wrong-spaces");
+    let skpdL = document.querySelector(".skipped-letters");
     let wpmScore, accuracyScore;
 
     wpmScore = Math.round((correctLetters + wrongLetters + allSpaces) / 5);
@@ -388,7 +403,7 @@ function calculateMetrics() {
         wpm.setAttribute("data-category", "keyboard-master");
     }
 
-    accuracyScore = (((correctLetters + correctSpaces) / (correctLetters + wrongLetters + allSpaces)) * 100).toFixed(1);
+    accuracyScore = (((correctLetters + correctSpaces) / (correctLetters + wrongLetters + allSpaces + skippedLetters)) * 100).toFixed(1);
 
     if (isNaN(accuracyScore)) accuracyScore = 0;
 
@@ -408,7 +423,7 @@ function calculateMetrics() {
 
     kpm.innerText = KPM;
 
-    let errorScore = ((wrongLetters + wrongSpaces) / (correctLetters + wrongLetters + allSpaces)) * 100;
+    let errorScore = ((wrongLetters + wrongSpaces + skippedLetters) / (correctLetters + wrongLetters + allSpaces + skippedLetters)) * 100;
 
     if (isNaN(errorScore)) errorScore = 0;
 
@@ -417,6 +432,7 @@ function calculateMetrics() {
     wrongLet.innerText = wrongLetters
     corrSp.innerText = correctSpaces;
     wrongSp.innerText = wrongSpaces;
+    skpdL.innerText = skippedLetters;
 
     let resultsHistory = JSON.parse(localStorage.getItem("resultsHistory")) ?? [];
     let id = resultsHistory.length == 0 ? 1 : resultsHistory[0].id + 1;
