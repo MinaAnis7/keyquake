@@ -29,6 +29,7 @@ const typingTexts = [
 ];
 
 let startBtn = document.querySelector(".start-btn");
+let intro = document.querySelector(".home .intro");
 let testContainer = document.querySelector(".test-container");
 let inputText = document.querySelector(".input-text");
 let testText = document.querySelector(".test p");
@@ -57,9 +58,9 @@ navLinks[1].addEventListener("click", () => {
 });
 
 startBtn.addEventListener("click", function () {
-    this.classList.add("remove-btn");
-    this.onanimationend = function () {
-        this.classList.add("hidden")
+    intro.classList.add("slide-down-base");
+    intro.onanimationend = function () {
+        intro.classList.add("hidden");
         testContainer.classList.remove("hidden");
         testContainer.classList.add("test-down");
 
@@ -520,6 +521,8 @@ function getResultsHistory() {
     if (resultsHistory.length == 0) {
         dataContainer.classList.add("hidden");
         noDataParagraph.classList.remove("hidden");
+
+        document.querySelectorAll('.ad-container').forEach(ad => ad.style.display = 'none');
     }
     else {
         noDataParagraph.classList.add("hidden");
