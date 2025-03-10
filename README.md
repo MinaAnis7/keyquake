@@ -21,3 +21,6 @@ KeyQuake is a web-based typing speed test designed to measure typing speed, accu
 2. Start typing the displayed text
 3. Your WPM, accuracy, and other metrics will be calculated after finishing the test
 4. Track your progress by going to **results tracker tab**
+
+## License
+All rights reserved. Unauthorized copying or reproduction is prohibited.
